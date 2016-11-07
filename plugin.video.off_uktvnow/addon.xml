@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.off_uktvnow" name="UKTV Now (official)" version="1.0.0" provider-name="UKTV Now">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Stream live TV</summary>
+    <description lang="en">WE ARE PROVIDING LIVE TV CHANNELS FROM VARIOUS COUNTRIES. WE ARE COVERING ALL MAJOR CATEGORIES LIKE SPORTS, ENTERTAINMENT, MOVIES, NEWS, KIDS ETC. ALL CHANNELS ARE IN HIGH QUALITY.</description>
+    <platform>all</platform>
+  </extension>
+</addon>
