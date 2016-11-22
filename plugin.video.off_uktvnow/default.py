@@ -30,7 +30,7 @@ user = selfAddon.getSetting('username')
 password = selfAddon.getSetting('password')
 
 def Login():
-        auth=net.http_GET('http://uktvnow.net/app3/index2.php?case=login&username=%s&password=%s'%(user,password)).content
+        auth=net.http_GET('http://uktvnow.net/app5/index2.php?case=login&username=%s&password=%s'%(user,password)).content
         if 'Invalid' in auth:
                 dialog.ok('UKTV Now', 'Invalid username and password provided!','Please check your account details in Add-on settings','')
                 sys.exit()
@@ -46,7 +46,7 @@ def Login():
                 Main(session)
 
 def Main(session):
-        cats=net.http_GET('http://uktvnow.net/app3/index2.php?case=get_all_cats&username=%s&sessionID=%s'%(user,session)).content
+        cats=net.http_GET('http://uktvnow.net/app5/index2.php?case=get_all_cats&username=%s&sessionID=%s'%(user,session)).content
         catsresponse=json.loads(cats)
         for cat in catsresponse:
                 catid=cat["pk_id"]
@@ -55,7 +55,7 @@ def Main(session):
 	xbmc.executebuiltin('Container.SetViewMode(500)')
 
 def GetChannels(url,session):
-        chans=net.http_GET('http://uktvnow.net/app3/index2.php?case=get_channel_by_cat&cat_id=%s&username=%s&sessionID=%s'%(url,user,session)).content
+        chans=net.http_GET('http://uktvnow.net/app5/index2.php?case=get_channel_by_cat&cat_id=%s&username=%s&sessionID=%s'%(url,user,session)).content
         chansresponse=json.loads(chans)
         if not 'http_stream' in chans:
                 if 'logged' in chans:dialog.ok('UKTV Now', 'Please re-login to watch channels. We have recieved notification of possible account sharing, continued sharing will result in your IP and account being banned. You can change your password by logging in at http://uktvnow.net/login')
@@ -63,13 +63,13 @@ def GetChannels(url,session):
         else:
                 for channels in chansresponse:
                         name=channels["name"]
-                        img='http://uktvnow.net/app3/'+channels["img"].replace(' ','%20')
+                        img='http://uktvnow.net/app5/'+channels["img"].replace(' ','%20')
                         chanid=channels["pk_id"]
                         addDir(name,chanid,2,img,fanart,session)
         xbmc.executebuiltin('Container.SetViewMode(500)')
 
 def GetStreams(name,url,iconimage,session):
-        chan=net.http_GET('http://uktvnow.net/app3/index2.php?case=get_channel_details&channel_id=%s&username=%s&sessionID=%s'%(url,user,session)).content
+        chan=net.http_GET('http://uktvnow.net/app5/index2.php?case=get_channel_details&channel_id=%s&username=%s&sessionID=%s'%(url,user,session)).content
         chanresponse=json.loads(chan)
         if 'logged' in chan:dialog.ok('UKTV Now', 'Please re-login to watch channels. We have recieved notification of possible account sharing, continued sharing will result in your IP and account being banned. You can change your password by logging in at http://uktvnow.net/login')
         else:
@@ -82,8 +82,8 @@ def GetStreams(name,url,iconimage,session):
                 streamurl=[]
                 streamurl.append(http)
                 streamurl.append(rtmp)
-                streamname.append('Stream 1 (http)')
-                streamname.append('Stream 2 (rtmp)')
+                streamname.append('Stream 1 - http')
+                streamname.append('Stream 2 - rtmp')
                 select = dialog.select(name,streamname)
                 if select == -1:return
                 else:
