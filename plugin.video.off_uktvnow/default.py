@@ -40,6 +40,9 @@ def Login():
         elif 'inactive' in auth:
                 dialog.ok('UKTV Now', 'Your subscription has been suspended','Please contact us at','contact@uktvnow.net')
                 sys.exit()
+	elif 'do not have' in auth:
+		dialog.ok('UKTV Now', 'You do not have an active subscription!','To renew please login at','http://uktvnow.net/signup')
+                sys.exit()
         else:
                 authresponse=json.loads(auth)
                 session=authresponse["msg"]
